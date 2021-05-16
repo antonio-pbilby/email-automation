@@ -17,7 +17,7 @@ class CreateUserController {
         return res.status(400).json({ error: e.message });
       });
 
-    if (user[0]) return res.status(400).json({ error: "User already exists" });
+    if (user) return res.status(400).json({ error: "User already exists" });
 
     return this.usersRepository
       .create({
