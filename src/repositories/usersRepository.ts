@@ -2,10 +2,6 @@ import { CreateQuery } from "mongoose";
 
 import User, { IUser } from "../models/User.model";
 
-// interface IUpdateUser {
-//   id: string;
-//   user: IUser;
-// }
 class UsersRepository {
   async create({
     first_name,
@@ -28,17 +24,21 @@ class UsersRepository {
     return user;
   }
 
+  async findById(id: string): Promise<IUser> {
+    const user: IUser = await User.findOne({ _id: id });
+
+    return user;
+  }
+
   async list(): Promise<IUser[]> {
     const users: IUser[] = await User.find();
 
     return users;
   }
 
-  // async update({id, user}: IUpdateUser): Promise<IUser> {
-  //   const userUpdt = await User.updateOne({_id: id}, {user});
-
-  //   return userUpdt;
-  // }
+  update(user: IUser): Promise<IUser> {
+    return user.save();
+  }
 }
 
 export { UsersRepository };
